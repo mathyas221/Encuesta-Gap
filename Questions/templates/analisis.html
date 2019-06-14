@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div class="container">
+    <h1>Preguntas Seguridad</h1>
+    <div class="col-md-6 col-md-offset-3">
+        <canvas id="Grafico"></canvas>
+    </div>
+
+
+    <table class="table">
+
+        <thead>
+        <tr>
+            <th scope="col">Dominio</th>
+            <th scope="col">Total respuestas V</th>
+            <th scope="col">Total respuestas F</th>
+            <th scope="col">Porcentaje cumplimiento</th>
+            <th scope="col">Recomendación</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cli in object_list %}
+            <tr>
+                <td>{{ cli.type }}</td>
+                <td>{{ cli.total_t }}</td>
+                <td>{{ cli.total_f }}</td>
+                {% if cli.percentaje_t >= 50 and cli.percentaje_t <= 100 %}
+                    <td BGCOLOR="#48F901">{{ cli.percentaje_t }}</td>
+                {% elif cli.percentaje_t < 50 and cli.percentaje_t >= 0 %}
+                    <td BGCOLOR="red">{{ cli.percentaje_t }}</td>
+                {% else %}
+                    <td BGCOLOR="blue">{{ cli.percentaje_t }}</td>
+                {% endif %}
+                {% if cli.percentaje_t < 50 and cli.percentaje_t >= 0 and cli.type == "D1" %}
+                    <td>Se recomienda la realización de una política de seguridad informática, que debe contener los
+                        conceptos de seguridad de la información, una estructura para establecer los objetivos y las
+                        formas de control y el compromiso de la dirección con políticas.
+                    </td>
+                {% endif %}
+                {% if cli.percentaje_t < 50 and cli.percentaje_t >= 0 and cli.type == "D2" %}
+                    <td>Se recomienda establecer una estructura para implementar la seguridad de la información en una
+                        empresa y de esta manera gestionarla de manera adecuada. Para ello, las actividades de seguridad
+                        de la información deben ser coordinadas por representantes de la organización que deben tener
+                        responsabilidad bien definidas y proteger las informaciones de carácter confidencial.
+                    </td>
+                {% endif %}
+                {% if cli.percentaje_t < 50 and cli.percentaje_t >= 0 and cli.type == "D3" %}
+                    <td>Se recomienda identificar y clasificar los activos, de modo que un inventario pueda ser
+                        estructurado y posteriormente mantenido. Además, deben seguir reglas documentadas, que definen
+                        que tipo de uso se permite con dichos activos.
+                    </td>
+                {% endif %}
+                {% if cli.percentaje_t < 50 and cli.percentaje_t >= 0 and cli.type == "D4" %}
+                    <td>Se recomienda la revisión de seguridad de acuerdo con políticas y procedimiento establecidos por
+                        la organización o por otra parte que los empleados de la organización reciban entrenamiento
+                        adecuado de seguridad correspondiente a sus funciones.
+                    </td>
+                {% endif %}
+                {% if cli.percentaje_t < 50 and cli.percentaje_t >= 0 and cli.type == "D5" %}
+                    <td>Se recomienda que los equipos y instalaciones de procesamiento de información critica o sensible
+                        deben mantenerse en áreas seguras, con niveles y controles de acceso apropiados, incluyendo
+                        protección contra amenazas físicas y ambientales
+                    </td>
+                {% endif %}
+                {% if cli.percentaje_t < 50 and cli.percentaje_t >= 0 and cli.type == "D6" %}
+                    <td>Se recomienda que los procedimientos y responsabilidades por la gestión y operación de todos los
+                        recursos de procesamiento de la información estén definidos. Esto incluye la gestión de servicio
+                        tercerizados, la planificación de recurso del sistema para minimizar el riesgo de fallas, la
+                        creación de procedimientos para la generación de copias de seguridad y su recuperación
+                    </td>
+                {% endif %}
+                {% if cli.percentaje_t < 50 and cli.percentaje_t >= 0 and cli.type == "D7" %}
+                    <td>Se recomienda que los recursos de procesamiento de la información y los procesos de negocios
+                        deben ser controlado con base en los requisitos de negocio y en la seguridad de la información.
+                        Debe garantizarse el acceso de cada usuario autorizado y prevenido el acceso no autorizados a
+                        los sistema de información de manera que evite daños a documentos y recursos de procesamiento de
+                        la información que estén fuera de alcance de cualquiera.
+                    </td>
+                {% endif %}
+                {% if cli.percentaje_t < 50 and cli.percentaje_t >= 0 and cli.type == "D8" %}
+                    <td>Se recomienda que los requisitos de seguridad de los sistema de información debe ser
+                        identificados y acordados antes de su desarrollo y/o de su implementación, para que así puedan
+                        ser protegidos para el mantenimiento de su confidencialidad, autenticidad o integridad por medio
+                        criptográficos.
+                    </td>
+                {% endif %}
+                {% if cli.percentaje_t < 50 and cli.percentaje_t >= 0 and cli.type == "D9" %}
+                    <td>Se recomienda que los planes de continuidad del negocio deben ser desarrollados e implementados,
+                        con el fin de impedir la interrupción de las actividades del negocio y asegurar que las
+                        operaciones esenciales sean rápidamente recuperadas.
+                    </td>
+                {% endif %}
+                {% if cli.percentaje_t < 50 and cli.percentaje_t >= 0 and cli.type == "D10" %}
+                    <td>Se recomienda que los planes de continuidad del negocio deben ser desarrollados e implementados,
+                        con el fin de impedir la interrupción de las actividades del negocio y asegurar que las
+                        operaciones esenciales sean rápidamente recuperadas.
+                    </td>
+                {% endif %}
+                {% if cli.percentaje_t < 50 and cli.percentaje_t >= 0 and cli.type == "D11" %}
+                    <td>Se recomienda realizar una revisión para evitar la violación de cualquier ley criminal o civil,
+                        garantizando estatutos, regulación u obligaciones contractuales y de cualesquiera requisitos de
+                        seguridad de la información. En caso necesario, la empresa puede contratar una consultoría
+                        especializada, para que verifique su cumplimiento y adherencia a los requisitos legales y
+                        reglamentarios.
+                    </td>
+                {% endif %}
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+</body>
+<script src="{% static 'Chart.js' %}"></script>
+<script>
+    let canvas = document.getElementById("Grafico").getContext("2d");
+    canvas.canvas.width = 400;
+    canvas.canvas.height = 400;
+    var chart = new Chart(canvas, {
+        type: "bar",
+        data: {
+            labels: ["D9", "D8", "D7", "D6", "D5", "D4", "D3", "D2", "D11", "D10", "D1"],
+            datasets: [
+                {
+                    label: "Grafico de cumplimiento de dominios",
+                    backgroundColor: "rgb(0,197,225)",
+                    data: [
+                        {% for a in object_list %}
+                            {{ a.percentaje_t }},
+                        {% endfor %}
+                    ]
+                }
+            ]
+        },
+        options: {
+            responsive: false
+        }
+    })
+</script>
+</html>
